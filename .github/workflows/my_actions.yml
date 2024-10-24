@@ -5,8 +5,17 @@ jobs:
     name: 任务1
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: 拉取代码
+        uses: actions/checkout@v4
+        
       - name: 安装依赖
         run: pip3 install -r requirements.txt
+        
       - name: 运行`mkdocs`服务器
-        run: mkdocs serve
+        run: mkdocs build
+        
+      - name: 部署
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: site
